@@ -1,5 +1,3 @@
-#see http://www.reddit.com/user/gargant
-
 import praw
 import dateutil.relativedelta
 import HTMLParser
@@ -66,7 +64,7 @@ Title | ^^comments | ^^score | ^^age
                 altcount = 0
                 print("/r/"+post.subreddit.display_name + ": " + post.title + ": " + url+"\n")
                 for alt_url in geturls(id):
-                    print("unescaped alt: " + h.unescape(alt_url))
+                    #print("unescaped alt: " + h.unescape(alt_url))
                     if h.unescape(alt_url) != url: #same video, different url
                         alts = r.get_info(url=alt_url)
                         for alt_post in alts:
@@ -76,7 +74,7 @@ Title | ^^comments | ^^score | ^^age
                                 +str(alt_post.score)+"|"+humantime(alt_post.created_utc)+"\n")
                 if altcount >= 1: #tell user
                     print(comment)
-                    alt_post.reply(comment)
+                    alt_post.comments[0].reply(comment)
                 canonicalurl = getcanonical(id)
                 if url != canonicalurl:
                     print >>f2, url
